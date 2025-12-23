@@ -1,19 +1,19 @@
-# Flights DW (PostgreSQL)
+# Flights Data Warehouse (PostgreSQL)
 
-Mini projekt SQL pokazujący modelowanie danych (kilka tabel + relacje) oraz analizę danych lotów przy użyciu zapytań SQL.
+A small SQL project demonstrating relational data modeling and analytical queries on flight data using PostgreSQL.
 
 ## Tech stack
 - PostgreSQL
 - DBeaver (SQL client)
-- Git + GitHub
+- Git & GitHub
 
 ## Data model
-Tabele:
-- `airports` — słownik lotnisk
-- `airlines` — słownik linii lotniczych
-- `flights` — tabela faktów (loty)
+Tables:
+- `airports` — airport dimension table
+- `airlines` — airline dimension table
+- `flights` — fact table containing flight-level data
 
-Relacje:
+Relationships:
 - `flights.airline_id` → `airlines.airline_id`
 - `flights.origin_airport_id` → `airports.airport_id`
 - `flights.dest_airport_id` → `airports.airport_id`
@@ -21,22 +21,22 @@ Relacje:
 ## How to run locally
 
 ### 1) Create database
-Utwórz bazę danych w PostgreSQL o nazwie `flights_dw` (np. w DBeaver).
+Create a PostgreSQL database named `flights_dw`.
 
 ### 2) Create schema
-Uruchom:
+Run:
 - `sql/01_schema.sql`
 
-### 3) Seed test data
-Uruchom:
+### 3) Seed sample data
+Run:
 - `sql/02_seed.sql`
 
 ## Analysis queries
-Zapytania znajdują się w `sql/queries/`:
+All analysis queries are located in `sql/queries/`:
 
-- `q01_top_routes.sql` — najczęstsze trasy (origin → destination)
-- `q02_avg_delays_by_airline.sql` — średnie opóźnienia odlotu/przylotu per linia (bez lotów anulowanych)
-- `q03_cancellation_rate_by_airline.sql` — liczba i % odwołanych lotów per linia
+- `q01_top_routes.sql` — most frequent routes (origin → destination)
+- `q02_avg_delays_by_airline.sql` — average departure and arrival delays per airline (excluding cancelled flights)
+- `q03_cancellation_rate_by_airline.sql` — total flights, cancelled flights, and cancellation rate per airline
 
 ## Notes
-Dane w `sql/02_seed.sql` są celowo małe i “kontrolowane”, żeby łatwo testować JOINy i agregacje bez potrzeby pobierania dużego datasetu.
+The dataset in `sql/02_seed.sql` is intentionally small and controlled to make JOINs and aggregations easy to inspect without requir_
